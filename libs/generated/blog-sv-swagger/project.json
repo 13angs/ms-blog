@@ -1,0 +1,19 @@
+{
+  "name": "blog-sv-swagger",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "outputs": ["libs/generated/blog-sv-swagger"]
+    },
+    "codegen": {
+      "executor": "@nx-dotnet/core:openapi-codegen",
+      "options": {
+        "openapiJsonPath": "libs/generated/blog-sv-swagger/swagger.json",
+        "outputProject": "generated-blog-sv-types"
+      },
+      "dependsOn": ["^swagger"]
+    }
+  },
+  "implicitDependencies": ["blog-sv"]
+}
