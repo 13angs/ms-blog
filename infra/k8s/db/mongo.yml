@@ -49,3 +49,5 @@ spec:
       name: mongo-db-srv
       targetPort: 27017
       protocol: TCP
+      nodePort: 30000
+  type: NodePort

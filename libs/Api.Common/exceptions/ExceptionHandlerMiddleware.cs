@@ -51,6 +51,9 @@ namespace Api.Common.exceptions
             }
 
             await context.Response.WriteAsync(JsonConvert.SerializeObject(response));
+
+            if(exception is not ErrorResponseException)
+                throw exception;
         }
     }
 
