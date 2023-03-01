@@ -1,3 +1,5 @@
+using Api.Common.exceptions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,7 +18,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
+app.UseResponseExceptionHandler();
 
 app.UseAuthorization();
 

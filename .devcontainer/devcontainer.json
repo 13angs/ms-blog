@@ -38,7 +38,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"ms-kubernetes-tools.vscode-kubernetes-tools"
+				"ms-kubernetes-tools.vscode-kubernetes-tools",
+				"kreativ-software.csharpextensions"
 			]
 		}
 	}
