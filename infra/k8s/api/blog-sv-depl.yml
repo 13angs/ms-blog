@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-sv-depl
+  labels:
+    app: blog-sv
+spec:
+  selector:
+    matchLabels:
+      app: blog-sv
+  template:
+    metadata:
+      labels:
+        app: blog-sv
+    spec:
+      containers:
+        - name: blog-sv-con
+          image: 13angs/msb-blog-sv:latest
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+          env:
+            - name: MongoConfig__ConnectionString
+              valueFrom:
+                configMapKeyRef:
+                  name: mongodb-configmap
+                  key: db_url
+            - name: RabbitMQ__HostName
+              valueFrom:
+                configMapKeyRef:
+                  name: rabbitmq-configmap
+                  key: rabbitmq_hostname
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-sv-srv
+spec:
+  selector:
+    app: blog-sv
+  ports:
+    - port: 5000
+      name: blog-sv-srv
+      targetPort: 5000
+      protocol: TCP
+      nodePort: 30004
+  type: NodePort
+
+          
+              

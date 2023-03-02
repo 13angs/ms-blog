@@ -4,3 +4,4 @@ metadata:
   name: rabbitmq-configmap
 data:
   default_user: admin
+  rabbitmq_hostname: "amqp://admin:password@rabbitmq-server-srv:5672"
