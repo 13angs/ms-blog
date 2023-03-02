@@ -1,6 +1,7 @@
 using Api.Common.exceptions;
 using blog_sv.Interfaces;
 using blog_sv.Services;
+using Simple.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IBlogDbContext, BlogDbContext>();
 builder.Services.AddScoped<IBlog, BlogService>();
+builder.Services.AddScoped<IMessagePublisher, MessagePublisher>();
 
 var app = builder.Build();
 
