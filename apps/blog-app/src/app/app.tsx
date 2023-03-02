@@ -1,15 +1,30 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.css';
-
-import NxWelcome from './nx-welcome';
+import * as React from 'react';
 
 export function App() {
-  return (
-    <>
-      <NxWelcome title="blog-app" />
+  const [blogData, setBlogData] = React.useState(null);
 
-      <div />
-    </>
+  React.useEffect(() => {
+    // const url = process.env.NX_API_URL || '';
+    async function fetchBlog() {
+      try {
+        const res = await fetch(`http://bs-blog.sample/api/v1/blog/blogs`);
+        const data = await res.json();
+        setBlogData(data);
+      } catch (err) {
+        alert(err);
+      }
+    }
+
+    fetchBlog();
+  }, [])
+
+  return (
+    <div>
+      <pre>
+        {blogData && JSON.stringify(blogData, null, 2)}
+      </pre>
+    </div>
   );
 }
 

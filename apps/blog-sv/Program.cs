@@ -8,6 +8,7 @@ using Newtonsoft.Json.Serialization;
 using Simple.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
+IConfiguration _configuration = builder.Configuration;
 
 // Add services to the container.
 
@@ -33,6 +34,17 @@ builder.Services.AddControllers()
     }
 );
 
+builder.Services.AddCors(options =>
+{
+  options.AddPolicy(name: _configuration["CorsName"], build =>
+  {
+    build.WithOrigins(_configuration["AllowedHosts"])
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+
+  });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -42,6 +54,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(_configuration["CorsName"]);
 // app.UseHttpsRedirection();
 app.UseResponseExceptionHandler();
 
