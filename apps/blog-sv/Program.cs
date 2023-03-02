@@ -21,6 +21,7 @@ builder.Services.AddScoped<IMessagePublisher, MessagePublisher>();
 builder.Services.AddScoped<IMessageSubscriber, MessageSubscriber>();
 builder.Services.AddHostedService<BlogMessageCollectorService>();
 builder.Services.AddSingleton<IRealtime, RealtimeService>();
+builder.Services.AddHostedService<BlogMessageReceiver>();
 
 // configure controller to use Newtonsoft as a default serializer
 builder.Services.AddControllers()

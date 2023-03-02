@@ -12,7 +12,7 @@ namespace hub_sv.Hubs
     }
     public async Task SendAllMessage(string from, string message)
     {
-        _logger.LogInformation($"Invoking SendAllMessage method from: {from}");
+        _logger.LogInformation($"Invoking ${BlogHubMethodNames.SendAllMessage} method from: {from}");
       await Clients.All.SendAsync(BlogHubMethodNames.ReceiveAllMessage!, from, message);
     }
   }

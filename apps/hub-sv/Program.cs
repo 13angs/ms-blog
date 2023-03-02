@@ -1,3 +1,5 @@
+using Api.Common.Interfaces;
+using Api.Common.Services;
 using hub_sv.Hubs;
 using Newtonsoft.Json.Serialization;
 using Simple.RabbitMQ;
@@ -12,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IMessageSubscriber, MessageSubscriber>();
 builder.Services.AddSignalR();
+builder.Services.AddSingleton<IRealtime, RealtimeService>();
 
 // configure controller to use Newtonsoft as a default serializer
 builder.Services.AddControllers()
