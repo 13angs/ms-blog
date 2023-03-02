@@ -31,6 +31,11 @@ spec:
                 configMapKeyRef:
                   name: rabbitmq-configmap
                   key: rabbitmq_hostname
+            - name: SignalrConfig__HostName
+              valueFrom:
+                configMapKeyRef:
+                  name: hub-sv-configmap
+                  key: hub_hostname
 ---
 apiVersion: v1
 kind: Service
