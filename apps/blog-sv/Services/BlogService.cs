@@ -48,6 +48,11 @@ namespace blog_sv.Services
       return blog;
     }
 
+    public IEnumerable<Blog> GetBlogs()
+    {
+      return _dbContext.GetBlogs();
+    }
+
     public void PublishMessage(string message)
     {
       _publisher.Publish(message, _configuration["RabbitMQ:RouteKey"], null);

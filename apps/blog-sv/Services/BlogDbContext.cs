@@ -20,5 +20,11 @@ namespace blog_sv.Services
       await _mongoCols.InsertOneAsync(blog);
       return blog;
     }
+
+    public IEnumerable<Blog> GetBlogs()
+    {
+      IEnumerable<Blog> blogs = _mongoCols.Find(b => true).ToList();
+      return blogs;
+    }
   }
 }

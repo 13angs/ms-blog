@@ -1,6 +1,7 @@
 using Api.Common.exceptions;
 using blog_sv.Interfaces;
 using blog_sv.Services;
+using Newtonsoft.Json.Serialization;
 using Simple.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,16 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IBlogDbContext, BlogDbContext>();
 builder.Services.AddScoped<IBlog, BlogService>();
 builder.Services.AddScoped<IMessagePublisher, MessagePublisher>();
+
+// configure controller to use Newtonsoft as a default serializer
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft
+            .Json.ReferenceLoopHandling.Ignore;
+        options.SerializerSettings.ContractResolver=new DefaultContractResolver();
+    }
+);
 
 var app = builder.Build();
 
