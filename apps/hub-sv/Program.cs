@@ -1,4 +1,3 @@
-using hub_sv.BgServices;
 using Newtonsoft.Json.Serialization;
 using Simple.RabbitMQ;
 
@@ -11,7 +10,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IMessageSubscriber, MessageSubscriber>();
-builder.Services.AddHostedService<HubMessageCollector>();
 
 // configure controller to use Newtonsoft as a default serializer
 builder.Services.AddControllers()

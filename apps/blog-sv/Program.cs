@@ -1,4 +1,5 @@
 using Api.Common.exceptions;
+using blog_sv.BgServices;
 using blog_sv.Interfaces;
 using blog_sv.Services;
 using Newtonsoft.Json.Serialization;
@@ -15,6 +16,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IBlogDbContext, BlogDbContext>();
 builder.Services.AddScoped<IBlog, BlogService>();
 builder.Services.AddScoped<IMessagePublisher, MessagePublisher>();
+builder.Services.AddScoped<IMessageSubscriber, MessageSubscriber>();
+builder.Services.AddHostedService<BlogMessageCollectorService>();
 
 // configure controller to use Newtonsoft as a default serializer
 builder.Services.AddControllers()
