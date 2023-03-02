@@ -14,7 +14,7 @@
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build", "codegen", "^codegen"],
+      "dependsOn": ["^build", "codegen", "^codegen", "codegen", "^codegen"],
       "inputs": ["production", "^production"]
     },
     "lint": {
@@ -37,6 +37,8 @@
           "lint",
           "test",
           "e2e",
+          "codegen",
+          "swagger",
           "codegen",
           "swagger"
         ]

@@ -1,0 +1,19 @@
+{
+  "name": "hub-sv-swagger",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "outputs": ["libs/generated/hub-sv-swagger"]
+    },
+    "codegen": {
+      "executor": "@nx-dotnet/core:openapi-codegen",
+      "options": {
+        "openapiJsonPath": "libs/generated/hub-sv-swagger/swagger.json",
+        "outputProject": "generated-hub-sv-types"
+      },
+      "dependsOn": ["^swagger"]
+    }
+  },
+  "implicitDependencies": ["hub-sv"]
+}
