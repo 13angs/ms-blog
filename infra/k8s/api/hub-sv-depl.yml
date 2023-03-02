@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hub-sv-depl
+  labels:
+    app: hub-sv
+spec:
+  selector:
+    matchLabels:
+      app: hub-sv
+  template:
+    metadata:
+      labels:
+        app: hub-sv
+    spec:
+      containers:
+        - name: hub-sv-con
+          image: 13angs/msb-hub-sv:latest
+          ports:
+            - containerPort: 5000
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hub-sv-srv
+spec:
+  selector:
+    app: hub-sv
+  ports:
+    - port: 5000
+      name: hub-sv-srv
+      targetPort: 5000
+      protocol: TCP
