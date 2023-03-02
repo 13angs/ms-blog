@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-app-depl
+  labels:
+    app: blog-app
+spec:
+  selector:
+    matchLabels:
+      app: blog-app
+  template:
+    metadata:
+      labels:
+        app: blog-app
+    spec:
+      containers:
+        - name: blog-app-con
+          image: 13angs/msb-blog-app:latest
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-app-srv
+spec:
+  selector:
+    app: blog-app
+  ports:
+    - port: 80
+      name: blog-app-srv
+      targetPort: 80
+      protocol: TCP
+
+          
+              
