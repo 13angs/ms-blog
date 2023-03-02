@@ -1,8 +1,9 @@
+using hub_sv.Hubs;
 using Newtonsoft.Json.Serialization;
 using Simple.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
-
+IConfiguration _configuration = builder.Configuration;
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IMessageSubscriber, MessageSubscriber>();
+builder.Services.AddSignalR();
 
 // configure controller to use Newtonsoft as a default serializer
 builder.Services.AddControllers()
@@ -30,7 +32,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// app.UseHttpsRedirection();
+// app.UseHttpsRedirection(); 
+app.UseRouting();
+
+app.MapHub<BlogHub>(_configuration["SignalrConfig:Endpoints:Blog"]);
 
 app.UseAuthorization();
 

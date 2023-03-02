@@ -1,4 +1,6 @@
 using Api.Common.exceptions;
+using Api.Common.Interfaces;
+using Api.Common.Services;
 using blog_sv.BgServices;
 using blog_sv.Interfaces;
 using blog_sv.Services;
@@ -18,6 +20,7 @@ builder.Services.AddScoped<IBlog, BlogService>();
 builder.Services.AddScoped<IMessagePublisher, MessagePublisher>();
 builder.Services.AddScoped<IMessageSubscriber, MessageSubscriber>();
 builder.Services.AddHostedService<BlogMessageCollectorService>();
+builder.Services.AddSingleton<IRealtime, RealtimeService>();
 
 // configure controller to use Newtonsoft as a default serializer
 builder.Services.AddControllers()

@@ -1,3 +1,4 @@
+using Api.Common.Interfaces;
 using Api.Common.Stores;
 using Simple.RabbitMQ;
 
@@ -8,11 +9,13 @@ namespace blog_sv.BgServices
     private readonly ILogger<BlogMessageCollectorService> _logger;
     private readonly IServiceProvider _serviceProvider;
     private readonly IConfiguration _configuration;
-    public BlogMessageCollectorService(IServiceProvider serviceProvider, ILogger<BlogMessageCollectorService> logger, IConfiguration configuration)
+    private readonly IRealtime _realTime;
+    public BlogMessageCollectorService(IServiceProvider serviceProvider, ILogger<BlogMessageCollectorService> logger, IConfiguration configuration, IRealtime realTime)
     {
       _serviceProvider = serviceProvider;
       _logger = logger;
       _configuration = configuration;
+      _realTime = realTime;
     }
     public Task StartAsync(CancellationToken cancellationToken)
     {
@@ -34,7 +37,9 @@ namespace blog_sv.BgServices
     {
       if(message.Contains(MessageCollectorTypeStore.Blog))
       {
-        _logger.LogInformation(message);
+        // _logger.LogInformation(message);
+        string url = $"{_configuration["SignalrConfig:HostName"]}{_configuration["SignalrConfig:Endpoints:Blog"]}";
+        _realTime.Invoke(url, HubTypeStore.Blog, "Invoke From BlogMessageCollector").GetAwaiter().GetResult();
         return true;
       }
       return false;
