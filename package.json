@@ -2,8 +2,7 @@
   "name": "msblog",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {
-  },
+  "scripts": {},
   "private": true,
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",
@@ -46,6 +45,7 @@
     "url-loader": "^4.1.1"
   },
   "dependencies": {
+    "@microsoft/signalr": "^7.0.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tslib": "^2.3.0"
