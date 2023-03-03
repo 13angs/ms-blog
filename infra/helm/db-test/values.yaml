@@ -1,0 +1,20 @@
+mongodb:
+  name: mongodb
+  image:
+    repository: mongo
+    tag: latest
+  labels:
+    app: mongodb
+  namespace: test
+  secrets:
+    rootUser: "root"
+    rootPass: "password"
+  configMaps:
+    appconfig:
+      key1: "value1"
+      key2: "value2"
+  persistence:
+    size: 10Gi
+    storageClassName: standard
+    hostPath:
+      path: /mnt/data/mongodb
