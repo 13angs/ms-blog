@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-server-depl
+  labels:
+    app: rabbitmq-server
+spec:
+  selector:
+    matchLabels:
+      app: rabbitmq-server
+  template:
+    metadata:
+      labels:
+        app: rabbitmq-server
+    spec:
+      containers:
+        - name: rabbitmq-server-con
+          image: rabbitmq:3-management
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+          ports:
+            - containerPort: 5672 
+            - containerPort: 15672 
+          env:
+            - name: RABBITMQ_DEFAULT_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: rabbitmq-configmap
+                  key: default_user
+            - name: RABBITMQ_DEFAULT_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: default_pass
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-server-srv
+spec: 
+  selector:
+    app: rabbitmq-server
+  ports:
+    - port: 5672
+      name: amqp
+      targetPort: 5672
+      nodePort: 30002
+    - port: 15672
+      name: management
+      targetPort: 15672
+      nodePort: 30003
+  type: NodePort
+
+
+          

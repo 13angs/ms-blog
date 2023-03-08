@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  # setup nginx for reverse proxying
+  msb-blog-app:
+    image: 13angs/msb-blog-app:${msb_blog_app_img_version}
+    build: 
+      context: ../../../../
+      dockerfile: apps/blog-app/Dockerfile
+    container_name: msb-blog-app
+    restart: unless-stopped
+    ports:
+      - 3000:80

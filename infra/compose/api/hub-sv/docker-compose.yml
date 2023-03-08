@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  # setup nginx for reverse proxying
+  msb-hub-sv:
+    image: 13angs/msb-hub-sv:${msb_hub_sv_img_version}
+    build: 
+      context: ../../../../
+      dockerfile: apps/hub-sv/Dockerfile
+    container_name: msb-hub-sv
+    restart: unless-stopped
+    environment:
+      - "ASPNETCORE_ENVIRONMENT=Development"

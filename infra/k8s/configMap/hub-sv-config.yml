@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hub-sv-configmap
+data:
+  hub_hostname: "http://hub-sv-srv:5000"
+
